@@ -1,10 +1,4 @@
-import urllib
-import facebook
-import requests
-import json
-import datetime
-import csv
-import time
+import urllib, facebook, requests, json, datetime ,csv, time
 from urllib.request import urlopen
 
 # https://github.com/mobolic/facebook-sdk#egg=facebook-sdk
