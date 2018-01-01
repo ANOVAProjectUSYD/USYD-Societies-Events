@@ -37,9 +37,12 @@ def print_data(data):
 
 def process_page_status(status):
     '''Process each field in the Facebook data.'''
-    # The status is now a Python dictionary, so for top-level item, we can simply call the key.
+    # The status is now a Python dictionary, so for top-level items,
+    # we can simply call the key.
+
+    # Additionally, some items may not always exist,
+    # so must check for existence first
     status_id = status['id']
-    # Must check for existence of items first.
     status_message = '' if 'message' not in status.keys() else status['message'].encode('utf-8')
     link_name = '' if 'name' not in status.keys() else status['name'].encode('utf-8')
     status_type = status['type']
