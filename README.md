@@ -4,7 +4,7 @@ This project seeks to scrape Facebook data regarding events from the top 20 bigg
 
 ## Requirements
 
-All packages used are in the (requirements.txt)[https://github.com/chrishyland/USYD-Societies-Events/blob/master/requirements.txt] file.
+All packages used are in the [requirements.txt](https://github.com/chrishyland/USYD-Societies-Events/blob/master/requirements.txt) file.
 
 ### Getting Started
 
