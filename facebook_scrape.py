@@ -100,6 +100,6 @@ def main():
     socities_to_scrape = ["SydneyUniversityBusinessSociety", "SydneyUniversityLawSociety", "SUITSUsyd"]
     scrape_facebook_page_status(page_id, token)
 
-
+    #https://developers.facebook.com/tools/explorer/145634995501895/?method=GET&path=180DegreesConsulting%3Ffields%3Devents%7Bcategory%2Cattending_count%2Ccover%2Cinterested_count%2Cevent_times%2Cend_time%2Cdescription%2Cinterested%7Babout%2Cage_range%7D%7D&version=v2.11
 if __name__ == "__main__":
     main()
