@@ -3,7 +3,7 @@ from urllib.request import urlopen
 
 def get_facebook_likes(token):
     '''Get the number of Facebook likes for each society.'''
-    with open('societies_facebook.csv', 'r', encoding='utf8') as ogFile:
+    with open('usu_societies.csv', 'r', encoding='utf8') as ogFile:
         tempFile = open('final_societies_facebook.csv', 'w')
         reader = csv.reader(ogFile, delimiter=',')
         writer = csv.writer(tempFile)
@@ -17,7 +17,8 @@ def get_facebook_likes(token):
 
             page_id = row[2]
             base = "https://graph.facebook.com/v2.11/"
-            # fan_count gets us number of likes for the page. Note that if global, then all pages across brand.
+            # fan_count gets us number of likes for the page
+            # note that if global, then all pages across brand
             parameters = "/?fields=fan_count,username&access_token=%s" % (token)
             try:
                 url = base + page_id + parameters

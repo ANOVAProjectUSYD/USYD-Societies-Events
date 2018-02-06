@@ -8,11 +8,11 @@ def get_website():
     try:
         html = urlopen('http://www.usu.edu.au/Our-Clubs-Societies/Our-clubs-societies.aspx')
     except HTTPError as e:
-        # Page not found exception.
+        # page not found exception
         print('Cannot connect to website at this time.')
         return
     if html is None:
-        # Server is not found.
+        # server is not found
         print('Server not found.')
         return
     else:
@@ -23,13 +23,13 @@ def get_website():
 def parse_site(html):
     '''Trawl USU webpage and return individual page of each society.'''
     bs_Obj = BeautifulSoup(html, "html.parser")
-    # Grab every society and USU listing from the page.
+    # grab every society and USU listing from the page
     names_list = []
     link_list = []
     for lists in bs_Obj.findAll("div", {"span5 clubhack"}):
         for club in lists.select("li"):
             names_list.append(club.text.strip())
-        # Gets the USU link to the society.
+        # gets the USU link to the society
         for a in lists.find_all('a', href=True):
             if a.get_text(strip=True):
                 link_list.append(a['href'])
@@ -39,10 +39,10 @@ def parse_site(html):
 
 def get_fb_link(names_list, link_list):
     '''Create CSV file with name of society and Facebook link.'''
-    # FB page for USU is an URL, not HTML so need to do this.
+    # FB page for USU is an URL, not HTML so need to do this
     URL = 'http://www.usu.edu.au'
     scrape_start = datetime.datetime.now()
-    with open('societies_facebook.csv', 'w') as file:
+    with open('usu_societies.csv', 'w') as file:
         w = csv.writer(file)
         w.writerow(["Society", "Facebook Link", "Facebook ID", "Category"])
         for index in range(0, len(names_list)):
@@ -51,16 +51,16 @@ def get_fb_link(names_list, link_list):
             if html is None:
                 print("Error encountered for %s" % (names_list[index]))
                 continue
-            # We want the type of society they are on USU page which is in URL.
+            # we want the type of society they are on USU page which is in URL
             split_cat = link_list[index].split("-clubs-societies/", 1)[1]
-            # Now second split to just get the category.
+            # now second split to just get the category
             category = split_cat.split("/", 1)[0]
             try:
-                # Get the actual page of the society on USU.
+                # get the actual page of the society on USU
                 soup = BeautifulSoup(html, "html.parser")
-                # Get Facebook URL of society.
+                # get Facebook URL of society
                 fb_url = soup.find("a", {"class": "facebook social-icon"}, href=True)['href']
-                # We want the Facebook page id which comes after .com/
+                # we want the Facebook page id which comes after .com/
                 fb_page_id = fb_url.split(".com/", 1)[1]
                 w.writerow([names_list[index], fb_url, fb_page_id, category])
             except Exception as e:
