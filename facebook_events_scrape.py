@@ -70,9 +70,9 @@ def scrape_api(token, society, file_name):
     print("{event_num} were scraped".format(event_num = total_scrape))
     print("{fail_num} failed scrapes".format(fail_num = fail_scrape))
 
-
+        
 def main():
-    token = 'EAACEdEose0cBALbpMDjM32oWIQla52FxGqtykoO5MlGQR45exf5GLBPsJYNgp7gofVcQNHLzo5ffNq1KeuKVhabm2YQzKGRPFLpherblPSz19uovZCKPX5roGtMXLDvttKDUfFOB32TZAzrjiwOLoyznNZB7TFLLQsI9z7Bx3i42b9FNNBv38VVoKJaK2CSrs6YgJtp0wZDZD'
+    token = 'EAACEdEose0cBAPA7HpEM5ANYn8KvXIlbZCYJiVjnZBULfZB8J3Lx5um3RbzXor7ZB4OTBIOH9BuSG6mPZBm3kbRetDjYFjWiErCXpSmYxCJZCEuPcjht8UEqSOIfAv2rMo8aj8JHAlqUYDhUB8HvNu7096B9ZBZBrAN2PsjZCfuWkzFMVKnUHghPXlpJJiWQC08UAbzxdzxZC4ywZDZD'
 
     read_data(token)
 
