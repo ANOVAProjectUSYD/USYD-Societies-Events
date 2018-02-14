@@ -10,21 +10,22 @@ def initial_write(name):
     writer.writerow(["Society", "event_name", "attendance_count",
                      "interested_count", "no_reply_count", "declined_count",
                      "maybe_count", "total_invited_count", "description",
-                     "start_time", "place" ])
+                     "start_time", "place", "city", "country", "street",
+                     "zip", "latitude", "longitude" ])
     write_file.close()
 
 
 def read_data(token):
     '''Open CSV file and pass next entry to FB graph API.'''
-    read_file = open('final_data.csv', 'r')
+    read_file = open('final_biggest_soc.csv', 'r')
     reader = csv.reader(read_file, delimiter=',')
 
-    initial_write('final_data_2')
+    initial_write('final_data')
 
     for row in reader:
         if row[2] == "Facebook_ID":
             continue
-        scrape_api(token, row[2], 'final_data_2') # scrapes info about the society
+        scrape_api(token, row[2], 'final_data') # scrapes info about the society
 
     read_file.close()
 
@@ -55,13 +56,29 @@ def scrape_api(token, society, file_name):
             total_invited_count = attendance_count + interested_count + no_reply_count + declined_count + maybe_count
             description = data_obj['description']
             start_time = data_obj['start_time']
-            place = data_obj['place']
-            writer.writerow([society, name, attendance_count, interested_count,
-                             no_reply_count, declined_count, maybe_count,
-                             total_invited_count, description, start_time,
-                             place])
+            place = data_obj['place']['name']
+
+            # Check if event has further info
+            if 'location' not in data_obj['place']:
+                writer.writerow([society, name, attendance_count, interested_count,
+                                 no_reply_count, declined_count, maybe_count,
+                                 total_invited_count, description, start_time,
+                                 place])
+
+            else:
+                location = data_obj['place']['location']
+
+                # Get further information
+                city, country, street, zip_code, latitude, longitude = extract_locations(location)
+
+                writer.writerow([society, name, attendance_count, interested_count,
+                                 no_reply_count, declined_count, maybe_count,
+                                 total_invited_count, description, start_time,
+                                 place, city, country, street, zip_code,
+                                 latitude, longitude])
             total_scrape +=1
         except Exception as e:
+            print(e)
             fail_scrape +=1
             continue
 
@@ -70,9 +87,24 @@ def scrape_api(token, society, file_name):
     print("{event_num} were scraped".format(event_num = total_scrape))
     print("{fail_num} failed scrapes".format(fail_num = fail_scrape))
 
-        
+
+def extract_locations(location_obj):
+    '''Extract more information from location.'''
+    final_info = {'city': None, 'country': None, 'street': None, 'zip': None, 'latitude':None, 'longitude':None}
+    info = ['city', 'country', 'street', 'zip', 'latitude', 'longitude']
+
+    # extract all information into dictionary
+    for data in info:
+        try:
+            final_info[data] = location_obj[data]
+        except:
+            pass
+
+    return final_info['city'], final_info['country'], final_info['street'], final_info['zip'], final_info['latitude'], final_info['longitude']
+
+
 def main():
-    token = 'EAACEdEose0cBAPA7HpEM5ANYn8KvXIlbZCYJiVjnZBULfZB8J3Lx5um3RbzXor7ZB4OTBIOH9BuSG6mPZBm3kbRetDjYFjWiErCXpSmYxCJZCEuPcjht8UEqSOIfAv2rMo8aj8JHAlqUYDhUB8HvNu7096B9ZBZBrAN2PsjZCfuWkzFMVKnUHghPXlpJJiWQC08UAbzxdzxZC4ywZDZD'
+    token = 'EAACEdEose0cBAAshC9HQ3vEcvNZBtaR0YDq0FBcA9SyayIIzZB1S2MZCqjKQGswsgnpZCZBywGKLmdVO1dmpwUkDUJejW7GO5WM9tRyF2pchqPli9KaxAfkDqb4SjKKCkZBsvbyZATsc3ZB6eJ8DAiEkjl2jQ1d9UOsfRGwFvBX9YZA7sWpGzNqhOSX3TP6d3bH4YisC1h6NjzgZDZD'
 
     read_data(token)
 

@@ -2,7 +2,7 @@
 
 This project seeks to scrape Facebook data regarding events from the top 20 biggest societies at USYD. From that, we then seek to analyse what are the factors that drive event attendance. Here, we seek to deploy models to analyse the casual relationships between event attendance and such factors such as the location of the event, timing during the semester and day, whether catering was provided, and more.
 
-The first step was required us to scrape all the societies at USYD from the [USU](http://www.usu.edu.au/Clubs-Societies.aspx) website. This was done in the usu_scrape.py file with the output being the usu_societies.csv file. After that, we then scraped the number of likes for each society as seen in the facebook_likes_scrape.py file which then gives us the output of final_societies_facebook.csv file. Then, running some simple data analysis in the Most-Likes-Analysis.ipynb, we were able to determine some interesting statistics and create a new dataset called final_data.csv which contains information regarding the top 20 societies. Finally, we scraped all the events hosted by the biggest societies in the facebook_events_scrape.py file which is then stored in the final_data_2.csv file. We can get further information about some events which is stored in final_data_3.csv.
+The first step was required us to scrape all the societies at USYD from the [USU](http://www.usu.edu.au/Clubs-Societies.aspx) website. This was done in the usu_scrape.py file with the output being the usu_societies.csv file. After that, we then scraped the number of likes for each society as seen in the facebook_likes_scrape.py file which then gives us the output of final_societies_facebook.csv file. Then, running some simple data analysis in the Most-Likes-Analysis.ipynb, we were able to determine some interesting statistics and create a new dataset called final_biggest_soc.csv which contains information regarding the top 20 societies. Finally, we scraped all the events hosted by the biggest societies in the facebook_events_scrape.py file which is then stored in the final_data.csv file.
 
 
 ## Data Science Task
@@ -35,7 +35,7 @@ More to come!
 
 ## Authors
 
-The ANOVA Project - Chris Hyland
+The ANOVA Project - Chris Hyland and Varun Satish.
 
 ## License
 
